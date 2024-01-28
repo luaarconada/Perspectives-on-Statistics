@@ -1,0 +1,70 @@
+---
+title: "Example of Technical Report"
+author: "Lúa Arconada Manteca y Alejandro Macías Pastor"
+date: "20 November 2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+The data set contains information about some individuals of a given species of animals. More specifically, it contains three variables: their weight (in pounds), their illness status, and their chronological age (in years). From the information contained in this data set we want to estimate the biological age of an individual of this species.
+
+# Method
+
+We employ a multiple linear regression model to predict the chronological age. Following the method explained in [1], then a second linear regression model is performed, this time between the predicted and real chronological ages. The predicted chronological age is then corrected by adding the deviation from the mean of the recorded chronological age times a weighting factor related to the regression coefficient of the second model. This corrected chronological age is then taken as the biological age.
+
+The predictors in the first model will be a numerical value indicating the weight of the individuals (in pounds) and a binary variable indicating their illness status (1 if they are sick; 0 otherwise). This model also includes a term accounting for the relation between the two predictors. As for the second model, the only predictor is a numerical variable containing the chronological age.
+
+We expect the model to predict higher biological than chronological age for sick individuals, as well as for individuals .
+
+# Results
+
+The first model's output produces the following regression coefficients: -4.01948, 0.22526, 18.98889 and -0.09069, for the intercept, weight, illness status and relation between weights and illness status terms, respectively. On the other hand, the second model's output is 7.6141 for the intercept term and 0.8276 for the age coefficient. The values of these coefficients indicate that higher weights lead to a higher biological age, and so does getting sick. The last coefficient indicates that in sick individuals a higher weight might be a sign of a lower biological age.
+
+The p-values of the first model's output indicate that none of the variables are individually significant within the framework of the model, although they are not simultaneously zero. This means, if we removed one specific variable, the resulting model would be better at predicting the age. 
+
+Below, the predicted biological ages are shown:
+```{r, echo=FALSE}
+df = read.table('bioage.csv', header=T, sep=';', fill=T)
+df=df[,-1]
+df$sick=factor(df$sick)
+
+model=lm(age~weight+sick+weight:sick, df)
+
+
+model2=lm(predict(model)~df$age)
+
+
+
+rbind(predict(model) + (df$age- mean(df$age))*(1-model2$coefficients[2]))
+```
+
+These predicted biological ages do not show any specific pattern concerning the weight and illness status of the individuals. 
+
+
+
+# Bibliography
+
+[1] Bafei, S.E.C., Shen, C. Biomarkers selection and mathematical modeling in biological age estimation. npj Aging 9, 13 (2023). <https://doi.org/10.1038/s41514-023-00110-8>
+
+# Appendix
+
+```{r}
+df = read.table('bioage.csv', header=T, sep=';', fill=T)
+df=df[,-1]
+df$sick=factor(df$sick)
+
+model=lm(age~weight+sick+weight:sick, df)
+
+summary(model)
+
+model2=lm(predict(model)~df$age)
+
+summary(model2)
+
+predict(model) + (df$age- mean(df$age))*(1-model2$coefficients[2])
+```

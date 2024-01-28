@@ -1,0 +1,121 @@
+---
+title: "Practice on Causal Inference"
+author: "Lúa Arconada and Alejandro Macías"
+date: "`r Sys.Date()`"
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction (A)
+
+```{r, include=FALSE}
+library(Matching)
+```
+
+The data set contains information about some individuals of a given species of animals. More specifically, it contains three variables: their weight (in pounds), their illness status (sick or not sick), and their chronological age (in years).
+
+```{r, echo=FALSE}
+df = read.table('bioage.csv', header=T, sep=';', fill=T)
+df = df[,-1]
+```
+
+Our objective is to provide an estimation of the causal effect of a relevant variable on a suitable response variable using the third variable as possible cofounding using the library `Match`.
+
+## Method ($M$)
+
+We are going to use `Match` with the variable `sick` as the response variable, `age` as the explanatory (variable of interest) and `weight` as the covariate (potential cofounder).
+
+We are going to explore the question: How does age influence the likelihood of being sick? We are going to explore how age might be associated with the likelihood of being sick. In other words, we investigate whether age is a risk factor for sickness.
+
+This setup allows us to explore how age influences the likelihood of being sick while controlling for the potential confounding effect of weight. The basic idea is that if we match treated and untreated by all confounders, the difference could be ascribed to a causal effect.
+
+Afterwards, we are going to check if matching is appropiately balancedfor the confounders.
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Results ($A^{-1}$)
+
+First, we do matching and obtain the following output.
+
+-   Estimate: 7.5675.
+
+This is the estimated Average Treatment Effect on the Treated (ATT). In the context of our data, it suggests the average change in the outcome variable (`sick`) for those treated compared to the control group after matching on the covariate `weight`. Here, it indicates that, on average, those who are `sick` have an increase of approximately 7.57 units in the `age` variable compared to the control group.
+
+-   AI SE (Asymptotic Influence Standard Error): 4.7945.
+
+This is the standard error associated with the estimate. It reflects the uncertainty in the estimate. In simpler terms, it tells us how much the estimate might vary if we were to repeat the study. It is 4.79, suggesting some uncertainty around the estimated treatment effect.
+
+-   T-stat (t-statistic): 1.5784.
+
+The t-statistic is calculated by dividing the estimated treatment effect by its standard error. It is used to test the null hypothesis that the true treatment effect is zero. A t-statistic close to zero suggests that the estimated effect is not significantly different from zero. Here, a t-statistic of 1.58 indicates that the estimated effect is about 1.58 times the standard error away from zero.
+
+-   p.val (p-value): 0.11448.
+
+The p-value is associated with the t-statistic. It indicates the probability of observing a t-statistic as extreme as the one calculated, assuming the null hypothesis (no treatment effect) is true. A small p-value (typically less than 0.05) suggests evidence against the null hypothesis. Here, the p-value is 0.11448, which is greater than 0.05. This suggests that the estimated treatment effect is not statistically significant at the conventional 0.05 significance level.
+
+-   Original number of observations: 10.
+
+The total number of observations in our original dataset.
+
+-   Original number of treated obs: 6.
+
+The number of observations that received the treatment (e.g., 'sick' = 1) in our dataset. In this case, there are 6 observations that are 'sick' in our dataset.
+
+-   Matched number of observations: 6.
+
+The number of observations used in the matched sample after propensity score matching.
+
+-   Matched number of observations (unweighted): 6.
+
+The number of observations in the matched sample without considering weights. In matching, sometimes weights are assigned to observations, but here, the unweighted number is also provided.
+
+In summary, the estimated effect suggests an increase in the 'age' variable for those who are 'sick' compared to the control group, but this effect is not statistically significant at the conventional significance level of 0.05. The p-value is greater than 0.05, indicating that we do not have strong evidence to reject the null hypothesis of no treatment effect.
+
+
+And secondly, we check is the matching is balanced and obtain the following output.
+
+- Mean and std mean diff: we can see comparing the mean before and after matching that, while the average weight in the treatment group (sick) remains 272'17, in the control group it changes from 164'3 to 202'5. The standardized mean difference changes from 241'06 to 155'66 and shows a substantial imbalance in the mean weight between both groups (treatment and control) that, nevertheless, decreased after matching.
+
+
+- Raw eQQ diff and eCDF diff: the decrease in both of their means indicate and improvement in balance.
+
+
+- Var Ratio (Tr/Co): it is "Inf" after matching, which might indicate a potential issue, such as complete separation in the data, where certain values of the covariate only occur in one group.
+
+NO SE SI DEBERÍAMOS QUITAR ESTO DEL VAR RATIO QUE NO ME GUSTA ESE INF POR AHÍ 
+
+
+- T-test, KS Bootstrap and KS Naive p-values: they all decrease, which indicates an improved balance.
+Decreased from 0.0017463 to 0.0086808, indicating improved balance.
+
+
+- KS Statistic: the Kolmogorov-Smirnov statistic is 0.83333 before and after matching, suggesting that the distributions are still quite different.
+
+ESTA DE KS STATISTIC NO ACABO DE ENTENDER BIEN
+
+
+To sum up, the propensity score matching procedure has led to some improvement in balance, as evidenced by the decreased standardized mean difference, raw eQQ differences, and eCDF differences. However, the variance ratio becoming "Inf" and the KS statistic remaining high might indicate challenges in achieving balance on the covariate weight.
+
+
+
+## Bibliography
+
+Lin, L., Sperrin, M., Jenkins, D.A. et al. A scoping review of causal methods enabling predictions under hypothetical interventions. Diagn Progn Res 5, 3 (2021).
+
+## Appendix
+
+```{r}
+A = Match(df$age, Tr=df$sick, X=df$weight, estimand='ATT', M=1)
+summary(A)
+```
+
+```{r}
+MB = MatchBalance(df$sick ~ df$weight, match.out=A, nboots=500)
+```
