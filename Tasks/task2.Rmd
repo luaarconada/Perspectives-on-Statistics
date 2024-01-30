@@ -3,8 +3,8 @@ title: "Practice on Causal Inference"
 author: "Lúa Arconada and Alejandro Macías"
 date: "`r Sys.Date()`"
 output:
-  word_document: default
   pdf_document: default
+  word_document: default
   html_document:
     df_print: paged
 ---

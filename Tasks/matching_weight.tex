@@ -1,0 +1,319 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Practice on Causal Inference},
+  pdfauthor={Lúa Arconada and Alejandro Macías},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Practice on Causal Inference}
+\author{Lúa Arconada and Alejandro Macías}
+\date{2024-01-06}
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction-a}{%
+\subsection{\texorpdfstring{Introduction
+(\(A\))}{Introduction (A)}}\label{introduction-a}}
+
+The data set contains information about some individuals of a given
+species of animals. More specifically, it contains three variables:
+their weight (in pounds), their illness status (sick or not sick), and
+their chronological age (in years).
+
+Our objective is to provide an estimation of the causal effect of a
+relevant variable on a suitable response variable using the third
+variable as possible confounding using the library \texttt{Matching}.
+
+\hypertarget{method-m}{%
+\subsection{\texorpdfstring{Method
+(\(M\))}{Method (M)}}\label{method-m}}
+
+We are going to use \texttt{Match} with the variable \texttt{weight} as
+the response variable, \texttt{sick} as the intervention variable and
+\texttt{age} as the potential confounder. In summary, we are going to
+explore the question: How does being sick influence an individual's
+weight?
+
+This setup allows us to explore how being sick influences the weight of
+the animals while controlling for the potential confounding effect of
+their age. The basic idea is that if we match treated and untreated by
+all confounders, the difference could be ascribed to a causal effect due
+to sickness. Afterwards, we are going to check if matching is
+appropiately balanced for the confounders.
+
+\hypertarget{results-a-1}{%
+\subsection{\texorpdfstring{Results
+(\(A^{-1}\))}{Results (A\^{}\{-1\})}}\label{results-a-1}}
+
+First, we carry out the matching process and obtain the following
+output:
+
+\begin{itemize}
+\tightlist
+\item
+  Estimate: 69.659.
+\end{itemize}
+
+This is the estimated Average Treatment Effect on the Treated (ATT). In
+the context of our data, it measures the average change in the outcome
+variable (\texttt{weight}) for those sick compared to the control group
+after matching on the covariate \texttt{age}. It indicates that, on
+average, those who are \texttt{sick} have an increase of approximately
+69.659 units in the \texttt{weigth} variable compared to the control
+group.
+
+\begin{itemize}
+\tightlist
+\item
+  AI SE (Asymptotic Influence Standard Error): 31.2.
+\end{itemize}
+
+This is the standard error associated with the estimate. In simpler
+terms, it tells us how much the estimate might vary if we were to repeat
+the study. It is 31.2, suggesting considerable uncertainty around the
+estimated treatment effect.
+
+\begin{itemize}
+\tightlist
+\item
+  T-stat (t-statistic): 2.2327.
+\end{itemize}
+
+The t-statistic is calculated by dividing the estimated treatment effect
+by its standard error. It is used to test the null hypothesis that the
+true treatment effect is zero. A t-statistic close to zero suggests that
+the estimated effect is not significantly different from zero. Here, a
+t-statistic of 2.2327 indicates that the estimated effect is about
+2.2327 times the standard error away from zero.
+
+\begin{itemize}
+\tightlist
+\item
+  p.val (p-value): 0.025572.
+\end{itemize}
+
+The p-value is associated with the t-statistic. It indicates the
+probability of observing a t-statistic as extreme as the one calculated,
+assuming the null hypothesis (no treatment effect) is true. A small
+p-value suggests evidence against the null hypothesis. Here, the p-value
+is 0.025572, meaning that the effect of being sick on the weight of the
+animals is statistically significant at the conventional 0.05
+significance level.
+
+\begin{itemize}
+\tightlist
+\item
+  Original number of observations: 10.
+\end{itemize}
+
+The total number of observations in our original dataset.
+
+\begin{itemize}
+\tightlist
+\item
+  Original number of treated obs: 6.
+\end{itemize}
+
+The number of observations that received the treatment (e.g., `sick' =
+1) in our dataset. In this case, there are 6 observations that are
+`sick' in our dataset.
+
+\begin{itemize}
+\tightlist
+\item
+  Matched number of observations: 6.
+\end{itemize}
+
+The number of observations used in the matched sample after propensity
+score matching.
+
+\begin{itemize}
+\tightlist
+\item
+  Matched number of observations (unweighted): 6.
+\end{itemize}
+
+The number of observations in the matched sample without considering
+weights. In matching, sometimes weights are assigned to observations,
+but here, the unweighted number is also provided.
+
+In summary, the estimated effect suggests an increase in the `weight'
+variable for those who are sick compared to healthy individuals. The
+effect caused by sickness is statistically significant at the
+conventional significance level of 0.05.
+
+And secondly, we check if the matching is balanced, that is, if there
+exists a sufficient number of treated and untreated (sick and healthy)
+units in the dataset with similar weights. This is important since it is
+desirable to have for each sick unit at least a healthy unit of similar
+age, in order to best infer whether the effect on the weight is due to
+the sickness status or some other covariate. Through both the naive and
+bootstrap Kolmogorov-Smirnov tests p-values (0.048 and 0.04), as well as
+through the T-test p-value (0.026), we can see that the dataset does not
+present a good balance in terms of units to match according to age, at
+least at the usual 0.05 significance level. That is, more units would be
+need for this causal analysis of the effect of sickness status on weight
+to be more secure.
+
+\hypertarget{bibliography}{%
+\subsection{Bibliography}\label{bibliography}}
+
+Lin, L., Sperrin, M., Jenkins, D.A. et al.~A scoping review of causal
+methods enabling predictions under hypothetical interventions. Diagn
+Progn Res 5, 3 (2021).
+
+\hypertarget{appendix}{%
+\subsection{Appendix}\label{appendix}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A }\OtherTok{=} \FunctionTok{Match}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{weight, }\AttributeTok{Tr=}\NormalTok{df}\SpecialCharTok{$}\NormalTok{sick, }\AttributeTok{X=}\NormalTok{df}\SpecialCharTok{$}\NormalTok{age, }\AttributeTok{estimand=}\StringTok{\textquotesingle{}ATT\textquotesingle{}}\NormalTok{, }\AttributeTok{M=}\DecValTok{1}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(A)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Estimate...  69.659 
+## AI SE......  31.2 
+## T-stat.....  2.2327 
+## p.val......  0.025572 
+## 
+## Original number of observations..............  10 
+## Original number of treated obs...............  6 
+## Matched number of observations...............  6 
+## Matched number of observations  (unweighted).  6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{MB }\OtherTok{=} \FunctionTok{MatchBalance}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{sick }\SpecialCharTok{\textasciitilde{}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{age, }\AttributeTok{match.out=}\NormalTok{A, }\AttributeTok{nboots=}\DecValTok{500}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## ***** (V1) df$age *****
+##                        Before Matching        After Matching
+## mean treatment........     51.597             51.597 
+## mean control..........      32.99             44.029 
+## std mean diff.........     270.57             110.05 
+## 
+## mean raw eQQ diff.....     16.619             8.5608 
+## med  raw eQQ diff.....     15.634             9.2663 
+## max  raw eQQ diff.....     20.958              14.25 
+## 
+## mean eCDF diff........    0.45833            0.38095 
+## med  eCDF diff........        0.5            0.33333 
+## max  eCDF diff........    0.83333            0.83333 
+## 
+## var ratio (Tr/Co).....    0.45213                Inf 
+## T-test p-value........   0.025567            0.03178 
+## KS Bootstrap p-value..      0.032               0.01 
+## KS Naive p-value......   0.047619           0.015152 
+## KS Statistic..........    0.83333            0.83333
+\end{verbatim}
+
+\end{document}
